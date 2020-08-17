@@ -8,12 +8,18 @@ import java.net.URI;
 public class OrdersConfigurationProperties {
     private String domain = "";
 
+    @Value("${spring.payment.host}")
+    private String paymentHost;
+
+    @Value("${spring.shipping.host}")
+    private String shippingHost;
+
     public URI getPaymentUri() {
-        return new ServiceUri(new Hostname("payment"), new Domain(domain), "/paymentAuth").toUri();
+        return new ServiceUri(new Hostname(paymentHost), new Domain(domain), "/paymentAuth").toUri();
     }
 
     public URI getShippingUri() {
-        return new ServiceUri(new Hostname("shipping"), new Domain(domain), "/shipping").toUri();
+        return new ServiceUri(new Hostname(shippingHost), new Domain(domain), "/shipping").toUri();
     }
 
     public void setDomain(String domain) {
